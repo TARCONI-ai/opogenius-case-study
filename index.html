@@ -70,6 +70,23 @@ header{
   box-shadow:0 12px 50px rgba(26,51,51,0.13);border:1px solid var(--gray-soft);
 }
 .viewer iframe{width:100%;height:100%;border:0;display:block}
+
+.btn-fs{
+  position:absolute;bottom:14px;right:14px;z-index:10;
+  width:38px;height:38px;padding:0;border-radius:9px;
+  background:rgba(26,51,51,0.72);backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,0.15);
+  color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .18s,transform .18s;
+}
+.btn-fs:hover{background:var(--teal-dark);transform:scale(1.08)}
+.btn-fs svg{width:17px;height:17px;pointer-events:none}
+
+/* fullscreen state */
+.viewer:fullscreen,
+.viewer:-webkit-full-screen{border-radius:0;height:100vh}
+.viewer:fullscreen iframe,
+.viewer:-webkit-full-screen iframe{height:100vh}
 .viewer-fallback{
   position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;
   gap:14px;text-align:center;padding:32px;color:var(--ink);
@@ -124,7 +141,13 @@ footer a{color:var(--teal-dark);font-weight:600}
 
 <div class="viewer-wrap">
   <div class="viewer" id="viewer">
-    <iframe id="frame" title="OpoGenius — caso de estudio" src="ES/OpoGenius-CasoPractico.pdf#view=FitH"></iframe>
+    <iframe id="frame" title="OpoGenius — caso de estudio" src="ES/OpoGenius-CasoPractico.pdf#view=FitH" allowfullscreen></iframe>
+    <button class="btn-fs" id="btn-fs" title="Pantalla completa" aria-label="Pantalla completa">
+      <svg id="icon-fs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/>
+        <line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>
+      </svg>
+    </button>
     <div class="viewer-fallback">
       <p data-i18n="fallback">Tu navegador no puede mostrar el PDF aquí. Ábrelo en una pestaña nueva o descárgalo.</p>
       <a class="btn btn-pdf" id="open-tab" href="ES/OpoGenius-CasoPractico.pdf" target="_blank" rel="noopener"><span data-i18n="open">Abrir en pestaña nueva</span></a>
@@ -180,6 +203,30 @@ function setLang(lang){
     if(t[k]!==undefined) el.innerHTML = t[k];
   });
   try{ history.replaceState(null,'','#'+lang); }catch(e){}
+}
+
+// Fullscreen
+const viewer = document.getElementById('viewer');
+const btnFs  = document.getElementById('btn-fs');
+const iconFs = document.getElementById('icon-fs');
+
+const ICON_EXPAND  = '<polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>';
+const ICON_COMPRESS= '<polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="10" y1="14" x2="3" y2="21"/><line x1="21" y1="3" x2="14" y2="10"/>';
+
+btnFs.addEventListener('click', ()=>{
+  if(!document.fullscreenElement && !document.webkitFullscreenElement){
+    (viewer.requestFullscreen || viewer.webkitRequestFullscreen).call(viewer);
+  } else {
+    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+  }
+});
+document.addEventListener('fullscreenchange', updateFsIcon);
+document.addEventListener('webkitfullscreenchange', updateFsIcon);
+function updateFsIcon(){
+  const inFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+  iconFs.innerHTML = inFs ? ICON_COMPRESS : ICON_EXPAND;
+  btnFs.setAttribute('aria-label', inFs ? 'Salir de pantalla completa' : 'Pantalla completa');
+  btnFs.title = btnFs.getAttribute('aria-label');
 }
 
 tabs.forEach(t=>t.addEventListener('click',()=>setLang(t.dataset.lang)));
