@@ -97,9 +97,27 @@ header{
 footer{border-top:1px solid var(--gray-soft);padding:26px 24px;text-align:center;color:var(--gray-mid);font-size:13px}
 footer a{color:var(--teal-dark);font-weight:600}
 
+/* ---------- Mobile card (replaces iframe on touch) ---------- */
+.mobile-card{
+  display:none;
+  background:var(--white);border-radius:18px;padding:36px 24px;text-align:center;
+  box-shadow:0 12px 50px rgba(26,51,51,0.13);border:1px solid var(--gray-soft);
+}
+.mobile-card .mc-icon{
+  width:64px;height:64px;background:var(--cream);border-radius:16px;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 18px;
+}
+.mobile-card .mc-icon svg{width:32px;height:32px;stroke:var(--teal);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.mobile-card h2{font-family:var(--font-display);font-size:20px;font-weight:700;margin-bottom:8px}
+.mobile-card p{font-size:15px;opacity:.65;max-width:32ch;margin:0 auto 24px}
+.mobile-card .mc-actions{display:flex;flex-direction:column;gap:10px}
+
 @media(max-width:640px){
-  .viewer{height:70vh}
+  .viewer-wrap .viewer{display:none}
+  .mobile-card{display:block}
   .doc-meta{width:100%;margin-bottom:4px}
+  .actions{flex-wrap:wrap}
+  .btn-pdf,.btn-docx{flex:1;justify-content:center}
 }
 </style>
 </head>
@@ -140,6 +158,26 @@ footer a{color:var(--teal-dark);font-weight:600}
 </div>
 
 <div class="viewer-wrap">
+
+  <!-- Mobile card (shown on small screens instead of iframe) -->
+  <div class="mobile-card" id="mobile-card">
+    <div class="mc-icon">
+      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+    </div>
+    <h2 id="mc-title">OpoGenius — Caso Práctico</h2>
+    <p data-i18n="mobile-lede">Ábrelo en tu visor de PDF para leerlo cómodamente en móvil.</p>
+    <div class="mc-actions">
+      <a class="btn btn-pdf" id="mc-open" href="ES/OpoGenius-CasoPractico.pdf" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <span data-i18n="open">Abrir en pestaña nueva</span>
+      </a>
+      <a class="btn btn-docx" id="mc-docx" href="ES/OpoGenius-CasoPractico.docx" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <span data-i18n="docx">Word (.docx)</span>
+      </a>
+    </div>
+  </div>
+
   <div class="viewer" id="viewer">
     <iframe id="frame" title="OpoGenius — caso de estudio" src="ES/OpoGenius-CasoPractico.pdf#view=FitH" allowfullscreen></iframe>
     <button class="btn-fs" id="btn-fs" title="Pantalla completa" aria-label="Pantalla completa">
@@ -170,30 +208,39 @@ const I18N = {
   es:{ eyebrow:'Caso de estudio', title:'Cómo construí una app de iOS <em>sin saber programar</em>',
        lede:'El proceso completo detrás de OpoGenius: qué es, para quién, cómo se construyó con herramientas de IA, y qué aprendí por el camino. Elige tu idioma para leer o descargar el documento.',
        reading:'Leyendo en', pdf:'Descargar PDF', docx:'Word (.docx)', open:'Abrir en pestaña nueva',
-       fallback:'Tu navegador no puede mostrar el PDF aquí. Ábrelo en una pestaña nueva o descárgalo.', tagline:'Tu plaza, tu objetivo' },
+       fallback:'Tu navegador no puede mostrar el PDF aquí. Ábrelo en una pestaña nueva o descárgalo.',
+       'mobile-lede':'Ábrelo en tu visor de PDF para leerlo cómodamente en móvil.', tagline:'Tu plaza, tu objetivo' },
   en:{ eyebrow:'Case study', title:'How I built an iOS app <em>without knowing how to code</em>',
        lede:'The full process behind OpoGenius: what it is, who it is for, how it was built with AI tools, and what I learned along the way. Pick your language to read or download the document.',
        reading:'Reading in', pdf:'Download PDF', docx:'Word (.docx)', open:'Open in new tab',
-       fallback:'Your browser cannot display the PDF here. Open it in a new tab or download it.', tagline:'Your seat, your goal' },
+       fallback:'Your browser cannot display the PDF here. Open it in a new tab or download it.',
+       'mobile-lede':'Open it in your PDF viewer for a comfortable reading experience on mobile.', tagline:'Your seat, your goal' },
   nl:{ eyebrow:'Casestudy', title:'Hoe ik een iOS-app bouwde <em>zonder te kunnen programmeren</em>',
        lede:'Het volledige proces achter OpoGenius: wat het is, voor wie, hoe het met AI-tools is gebouwd, en wat ik onderweg heb geleerd. Kies je taal om het document te lezen of te downloaden.',
        reading:'Lezen in', pdf:'Download PDF', docx:'Word (.docx)', open:'Openen in nieuw tabblad',
-       fallback:'Je browser kan de PDF hier niet tonen. Open hem in een nieuw tabblad of download hem.', tagline:'Jouw plek, jouw doel' }
+       fallback:'Je browser kan de PDF hier niet tonen. Open hem in een nieuw tabblad of download hem.',
+       'mobile-lede':'Open het in je PDF-viewer voor een prettige leeservaring op mobiel.', tagline:'Jouw plek, jouw doel' }
 };
 
-const frame = document.getElementById('frame');
+const frame   = document.getElementById('frame');
 const openTab = document.getElementById('open-tab');
-const dlPdf = document.getElementById('dl-pdf');
-const dlDocx = document.getElementById('dl-docx');
-const langName = document.getElementById('lang-name');
-const tabs = [...document.querySelectorAll('.lang')];
+const dlPdf   = document.getElementById('dl-pdf');
+const dlDocx  = document.getElementById('dl-docx');
+const langName= document.getElementById('lang-name');
+const mcOpen  = document.getElementById('mc-open');
+const mcDocx  = document.getElementById('mc-docx');
+const mcTitle = document.getElementById('mc-title');
+const tabs    = [...document.querySelectorAll('.lang')];
 
 function setLang(lang){
   const d = DOCS[lang]; if(!d) return;
-  frame.src = d.pdf + '#view=FitH';
-  openTab.href = d.pdf;
-  dlPdf.href = d.pdf;
-  dlDocx.href = d.docx;
+  frame.src     = d.pdf + '#view=FitH';
+  openTab.href  = d.pdf;
+  dlPdf.href    = d.pdf;
+  dlDocx.href   = d.docx;
+  mcOpen.href   = d.pdf;
+  mcDocx.href   = d.docx;
+  mcTitle.textContent = 'OpoGenius — ' + d.name;
   langName.textContent = d.name;
   document.documentElement.lang = lang;
   tabs.forEach(t=>t.setAttribute('aria-selected', t.dataset.lang===lang ? 'true':'false'));
