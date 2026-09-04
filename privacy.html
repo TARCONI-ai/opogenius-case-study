@@ -170,6 +170,11 @@ footer .back { display: inline-block; margin-top: 10px; font-weight: 600; }
   .container { padding: 32px 20px 80px; }
   .topbar { margin-bottom: 36px; }
 }
+@media (max-width: 460px) {
+  .langs { width: 100%; justify-content: space-between; }
+  .lang { padding: 7px 10px; font-size: 13px; gap: 5px; }
+  .lang .flag { font-size: 14px; }
+}
 </style>
 </head>
 <body>
@@ -230,6 +235,8 @@ footer .back { display: inline-block; margin-top: 10px; font-weight: 600; }
     <span data-i18n="footer">OpoGenius respeta tu privacidad. Tus datos nunca salen de tu dispositivo.</span>
     <br>
     <a class="back" id="back-link" href="index.html" data-i18n="back">← Volver al caso de estudio</a>
+    &nbsp;·&nbsp;
+    <a class="back" id="support-link" href="support.html" data-i18n="support">Soporte</a>
   </footer>
 
 </div>
@@ -254,7 +261,8 @@ const I18N = {
     ch: 'Contacto',
     cp: 'Si tienes cualquier duda, escríbenos a:',
     footer: 'OpoGenius respeta tu privacidad. Tus datos nunca salen de tu dispositivo.',
-    back: '← Volver al caso de estudio'
+    back: '← Volver al caso de estudio',
+    support: 'Soporte'
   },
   en: {
     doctitle: 'Privacy Policy — OpoGenius',
@@ -274,7 +282,8 @@ const I18N = {
     ch: 'Contact',
     cp: 'If you have any questions, write to us at:',
     footer: 'OpoGenius respects your privacy. Your data never leaves your device.',
-    back: '← Back to the case study'
+    back: '← Back to the case study',
+    support: 'Support'
   },
   nl: {
     doctitle: 'Privacybeleid — OpoGenius',
@@ -294,13 +303,15 @@ const I18N = {
     ch: 'Contact',
     cp: 'Als je vragen hebt, mail ons op:',
     footer: 'OpoGenius respecteert je privacy. Je gegevens verlaten je apparaat nooit.',
-    back: '← Terug naar de casestudy'
+    back: '← Terug naar de casestudy',
+    support: 'Ondersteuning'
   }
 };
 
 const tabs = [...document.querySelectorAll('.lang')];
 const backLink = document.getElementById('back-link');
 const brandLink = document.getElementById('brand-link');
+const supportLink = document.getElementById('support-link');
 
 function setLang(lang){
   const t = I18N[lang]; if(!t) return;
@@ -313,6 +324,7 @@ function setLang(lang){
   const href = 'index.html#' + lang;
   backLink.href = href;
   brandLink.href = href;
+  supportLink.href = 'support.html#' + lang;
   tabs.forEach(x=>x.setAttribute('aria-selected', x.dataset.lang===lang ? 'true':'false'));
   try{ history.replaceState(null,'','#'+lang); }catch(e){}
 }
