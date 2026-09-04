@@ -197,6 +197,8 @@ footer a{color:var(--teal-dark);font-weight:600}
 
 <footer>
   OpoGenius · <span data-i18n="tagline">Tu plaza, tu objetivo</span> — Jasper van Puffelen López
+  <br>
+  <a id="privacy-link" href="privacy.html"><span data-i18n="privacy">Política de privacidad</span></a>
 </footer>
 
 <script>
@@ -211,17 +213,17 @@ const I18N = {
        lede:'El proceso completo detrás de OpoGenius: qué es, para quién, cómo se construyó con herramientas de IA, y qué aprendí por el camino. Elige tu idioma para leer o descargar el documento.',
        reading:'Leyendo en', pdf:'Descargar PDF', docx:'Word (.docx)', open:'Abrir en pestaña nueva',
        fallback:'Tu navegador no puede mostrar el PDF aquí. Ábrelo en una pestaña nueva o descárgalo.',
-       'mobile-lede':'Ábrelo en tu visor de PDF para leerlo cómodamente en móvil.', tagline:'Tu plaza, tu objetivo' },
+       'mobile-lede':'Ábrelo en tu visor de PDF para leerlo cómodamente en móvil.', tagline:'Tu plaza, tu objetivo', privacy:'Política de privacidad' },
   en:{ eyebrow:'Case study', title:'How I built an iOS app <em>without knowing how to code</em>',
        lede:'The full process behind OpoGenius: what it is, who it is for, how it was built with AI tools, and what I learned along the way. Pick your language to read or download the document.',
        reading:'Reading in', pdf:'Download PDF', docx:'Word (.docx)', open:'Open in new tab',
        fallback:'Your browser cannot display the PDF here. Open it in a new tab or download it.',
-       'mobile-lede':'Open it in your PDF viewer for a comfortable reading experience on mobile.', tagline:'Your seat, your goal' },
+       'mobile-lede':'Open it in your PDF viewer for a comfortable reading experience on mobile.', tagline:'Your seat, your goal', privacy:'Privacy policy' },
   nl:{ eyebrow:'Casestudy', title:'Hoe ik een iOS-app bouwde <em>zonder te kunnen programmeren</em>',
        lede:'Het volledige proces achter OpoGenius: wat het is, voor wie, hoe het met AI-tools is gebouwd, en wat ik onderweg heb geleerd. Kies je taal om het document te lezen of te downloaden.',
        reading:'Lezen in', pdf:'Download PDF', docx:'Word (.docx)', open:'Openen in nieuw tabblad',
        fallback:'Je browser kan de PDF hier niet tonen. Open hem in een nieuw tabblad of download hem.',
-       'mobile-lede':'Open het in je PDF-viewer voor een prettige leeservaring op mobiel.', tagline:'Jouw plek, jouw doel' }
+       'mobile-lede':'Open het in je PDF-viewer voor een prettige leeservaring op mobiel.', tagline:'Jouw plek, jouw doel', privacy:'Privacybeleid' }
 };
 
 const frame   = document.getElementById('frame');
@@ -232,6 +234,7 @@ const langName= document.getElementById('lang-name');
 const mcOpen  = document.getElementById('mc-open');
 const mcDocx  = document.getElementById('mc-docx');
 const mcTitle = document.getElementById('mc-title');
+const privacyLink = document.getElementById('privacy-link');
 const tabs    = [...document.querySelectorAll('.lang')];
 
 function setLang(lang){
@@ -244,6 +247,7 @@ function setLang(lang){
   mcDocx.href   = d.docx;
   mcTitle.textContent = 'OpoGenius — ' + d.name;
   langName.textContent = d.name;
+  privacyLink.href = 'privacy.html#' + lang;
   document.documentElement.lang = lang;
   tabs.forEach(t=>t.setAttribute('aria-selected', t.dataset.lang===lang ? 'true':'false'));
   const t = I18N[lang];
