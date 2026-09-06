@@ -43,6 +43,19 @@ header{
 .lang[aria-selected="true"]{background:var(--teal);color:var(--white);opacity:1}
 .lang .flag{font-size:15px;line-height:1}
 
+/* ---------- Ko-fi support button ---------- */
+.btn-kofi{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-body);font-weight:600;font-size:14px;
+  color:var(--white);background:var(--orange);
+  padding:9px 16px;border-radius:50px;border:1.5px solid transparent;
+  box-shadow:0 2px 14px rgba(224,123,42,0.28);
+  transition:transform .18s,box-shadow .18s,background .18s;white-space:nowrap;
+}
+.btn-kofi:hover{background:#C96A1F;transform:translateY(-2px);box-shadow:0 6px 20px rgba(224,123,42,0.34)}
+.btn-kofi svg{width:17px;height:17px;flex:none}
+.footer-kofi{display:inline-flex;align-items:center;gap:6px}
+
 /* ---------- Intro ---------- */
 .intro{max-width:1080px;margin:0 auto;padding:40px 24px 8px}
 .eyebrow{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
@@ -121,7 +134,11 @@ footer a{color:var(--teal-dark);font-weight:600}
   .actions{flex-wrap:wrap}
   .btn-pdf,.btn-docx{flex:1;justify-content:center}
 }
+@media(max-width:640px){
+  .btn-kofi{font-size:13px;padding:8px 14px}
+}
 @media(max-width:460px){
+  .bar{justify-content:space-between}
   .langs{width:100%;justify-content:space-between}
   .lang{padding:7px 10px;font-size:13px;gap:5px}
   .lang .flag{font-size:14px}
@@ -138,6 +155,10 @@ footer a{color:var(--teal-dark);font-weight:600}
       </span>
       OpoGenius
     </div>
+    <a class="btn-kofi" href="https://ko-fi.com/tarconi" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4Z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+      <span data-i18n="kofi">Invítame a un café</span>
+    </a>
     <div class="langs" role="tablist" aria-label="Idioma del documento">
       <button class="lang" role="tab" data-lang="es"><span class="flag">🇪🇸</span>Español</button>
       <button class="lang" role="tab" data-lang="en"><span class="flag">🇬🇧</span>English</button>
@@ -203,6 +224,8 @@ footer a{color:var(--teal-dark);font-weight:600}
 <footer>
   OpoGenius · <span data-i18n="tagline">Tu plaza, tu objetivo</span> — Jasper van Puffelen López
   <br>
+  <a class="footer-kofi" href="https://ko-fi.com/tarconi" target="_blank" rel="noopener noreferrer"><span data-i18n="kofi_footer">Apoya el proyecto ☕</span></a>
+  &nbsp;·&nbsp;
   <a id="support-link" href="support.html"><span data-i18n="support">Soporte</span></a>
   &nbsp;·&nbsp;
   <a id="privacy-link" href="privacy.html"><span data-i18n="privacy">Política de privacidad</span></a>
@@ -220,17 +243,17 @@ const I18N = {
        lede:'El proceso completo detrás de OpoGenius: qué es, para quién, cómo se construyó con herramientas de IA, y qué aprendí por el camino. Elige tu idioma para leer o descargar el documento.',
        reading:'Leyendo en', pdf:'Descargar PDF', docx:'Word (.docx)', open:'Abrir en pestaña nueva',
        fallback:'Tu navegador no puede mostrar el PDF aquí. Ábrelo en una pestaña nueva o descárgalo.',
-       'mobile-lede':'Ábrelo en tu visor de PDF para leerlo cómodamente en móvil.', tagline:'Tu plaza, tu objetivo', privacy:'Política de privacidad', support:'Soporte' },
+       'mobile-lede':'Ábrelo en tu visor de PDF para leerlo cómodamente en móvil.', tagline:'Tu plaza, tu objetivo', privacy:'Política de privacidad', support:'Soporte', kofi:'Invítame a un café', kofi_footer:'Apoya el proyecto ☕' },
   en:{ eyebrow:'Case study', title:'How I built an iOS app <em>without knowing how to code</em>',
        lede:'The full process behind OpoGenius: what it is, who it is for, how it was built with AI tools, and what I learned along the way. Pick your language to read or download the document.',
        reading:'Reading in', pdf:'Download PDF', docx:'Word (.docx)', open:'Open in new tab',
        fallback:'Your browser cannot display the PDF here. Open it in a new tab or download it.',
-       'mobile-lede':'Open it in your PDF viewer for a comfortable reading experience on mobile.', tagline:'Your seat, your goal', privacy:'Privacy policy', support:'Support' },
+       'mobile-lede':'Open it in your PDF viewer for a comfortable reading experience on mobile.', tagline:'Your seat, your goal', privacy:'Privacy policy', support:'Support', kofi:'Buy me a coffee', kofi_footer:'Support the project ☕' },
   nl:{ eyebrow:'Casestudy', title:'Hoe ik een iOS-app bouwde <em>zonder te kunnen programmeren</em>',
        lede:'Het volledige proces achter OpoGenius: wat het is, voor wie, hoe het met AI-tools is gebouwd, en wat ik onderweg heb geleerd. Kies je taal om het document te lezen of te downloaden.',
        reading:'Lezen in', pdf:'Download PDF', docx:'Word (.docx)', open:'Openen in nieuw tabblad',
        fallback:'Je browser kan de PDF hier niet tonen. Open hem in een nieuw tabblad of download hem.',
-       'mobile-lede':'Open het in je PDF-viewer voor een prettige leeservaring op mobiel.', tagline:'Jouw plek, jouw doel', privacy:'Privacybeleid', support:'Ondersteuning' }
+       'mobile-lede':'Open het in je PDF-viewer voor een prettige leeservaring op mobiel.', tagline:'Jouw plek, jouw doel', privacy:'Privacybeleid', support:'Ondersteuning', kofi:'Trakteer me op een koffie', kofi_footer:'Steun het project ☕' }
 };
 
 const frame   = document.getElementById('frame');
