@@ -56,6 +56,18 @@ header{
 .btn-kofi svg{width:17px;height:17px;flex:none}
 .footer-kofi{display:inline-flex;align-items:center;gap:6px}
 
+/* ---------- App Store button ---------- */
+.btn-appstore{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-body);font-weight:600;font-size:14px;
+  color:var(--white);background:var(--teal);
+  padding:9px 16px;border-radius:50px;border:1.5px solid transparent;
+  box-shadow:0 2px 14px rgba(45,140,140,0.28);
+  transition:transform .18s,box-shadow .18s,background .18s;white-space:nowrap;
+}
+.btn-appstore:hover{background:var(--teal-dark);transform:translateY(-2px);box-shadow:0 6px 20px rgba(45,140,140,0.34)}
+.btn-appstore svg{width:16px;height:16px;flex:none}
+
 /* ---------- Intro ---------- */
 .intro{max-width:1080px;margin:0 auto;padding:40px 24px 8px}
 .eyebrow{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:12px}
@@ -155,6 +167,10 @@ footer a{color:var(--teal-dark);font-weight:600}
       </span>
       OpoGenius
     </div>
+    <a class="btn-appstore" href="https://apps.apple.com/es/app/opogenius/id6772936773" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 384 512" fill="currentColor" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C60.6 141 0 184.8 0 273.5c0 26.2 4.8 53.3 14.4 81.2 12.8 37.5 59 129.3 107.2 127.8 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-84.1 102.6-121.7-65.2-30.7-57.7-90-57.7-92.1zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      <span data-i18n="appstore">App Store</span>
+    </a>
     <a class="btn-kofi" href="https://ko-fi.com/tarconi" target="_blank" rel="noopener noreferrer">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4Z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
       <span data-i18n="kofi">Invítame a un café</span>
@@ -224,6 +240,8 @@ footer a{color:var(--teal-dark);font-weight:600}
 <footer>
   OpoGenius · <span data-i18n="tagline">Tu plaza, tu objetivo</span> — Jasper van Puffelen López
   <br>
+  <a href="https://apps.apple.com/es/app/opogenius/id6772936773" target="_blank" rel="noopener noreferrer"><span data-i18n="appstore">App Store</span></a>
+  &nbsp;·&nbsp;
   <a class="footer-kofi" href="https://ko-fi.com/tarconi" target="_blank" rel="noopener noreferrer"><span data-i18n="kofi_footer">Apoya el proyecto ☕</span></a>
   &nbsp;·&nbsp;
   <a id="support-link" href="support.html"><span data-i18n="support">Soporte</span></a>
@@ -243,17 +261,17 @@ const I18N = {
        lede:'El proceso completo detrás de OpoGenius: qué es, para quién, cómo se construyó con herramientas de IA, y qué aprendí por el camino. Elige tu idioma para leer o descargar el documento.',
        reading:'Leyendo en', pdf:'Descargar PDF', docx:'Word (.docx)', open:'Abrir en pestaña nueva',
        fallback:'Tu navegador no puede mostrar el PDF aquí. Ábrelo en una pestaña nueva o descárgalo.',
-       'mobile-lede':'Ábrelo en tu visor de PDF para leerlo cómodamente en móvil.', tagline:'Tu plaza, tu objetivo', privacy:'Política de privacidad', support:'Soporte', kofi:'Invítame a un café', kofi_footer:'Apoya el proyecto ☕' },
+       'mobile-lede':'Ábrelo en tu visor de PDF para leerlo cómodamente en móvil.', tagline:'Tu plaza, tu objetivo', privacy:'Política de privacidad', support:'Soporte', kofi:'Invítame a un café', kofi_footer:'Apoya el proyecto ☕', appstore:'App Store' },
   en:{ eyebrow:'Case study', title:'How I built an iOS app <em>without knowing how to code</em>',
        lede:'The full process behind OpoGenius: what it is, who it is for, how it was built with AI tools, and what I learned along the way. Pick your language to read or download the document.',
        reading:'Reading in', pdf:'Download PDF', docx:'Word (.docx)', open:'Open in new tab',
        fallback:'Your browser cannot display the PDF here. Open it in a new tab or download it.',
-       'mobile-lede':'Open it in your PDF viewer for a comfortable reading experience on mobile.', tagline:'Your seat, your goal', privacy:'Privacy policy', support:'Support', kofi:'Buy me a coffee', kofi_footer:'Support the project ☕' },
+       'mobile-lede':'Open it in your PDF viewer for a comfortable reading experience on mobile.', tagline:'Your seat, your goal', privacy:'Privacy policy', support:'Support', kofi:'Buy me a coffee', kofi_footer:'Support the project ☕', appstore:'App Store' },
   nl:{ eyebrow:'Casestudy', title:'Hoe ik een iOS-app bouwde <em>zonder te kunnen programmeren</em>',
        lede:'Het volledige proces achter OpoGenius: wat het is, voor wie, hoe het met AI-tools is gebouwd, en wat ik onderweg heb geleerd. Kies je taal om het document te lezen of te downloaden.',
        reading:'Lezen in', pdf:'Download PDF', docx:'Word (.docx)', open:'Openen in nieuw tabblad',
        fallback:'Je browser kan de PDF hier niet tonen. Open hem in een nieuw tabblad of download hem.',
-       'mobile-lede':'Open het in je PDF-viewer voor een prettige leeservaring op mobiel.', tagline:'Jouw plek, jouw doel', privacy:'Privacybeleid', support:'Ondersteuning', kofi:'Trakteer me op een koffie', kofi_footer:'Steun het project ☕' }
+       'mobile-lede':'Open het in je PDF-viewer voor een prettige leeservaring op mobiel.', tagline:'Jouw plek, jouw doel', privacy:'Privacybeleid', support:'Ondersteuning', kofi:'Trakteer me op koffie', kofi_footer:'Steun het project ☕', appstore:'App Store' }
 };
 
 const frame   = document.getElementById('frame');
